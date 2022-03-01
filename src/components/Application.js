@@ -16,30 +16,23 @@ export default function Application(props) {
     interviewers: {},
   });
 
-  const cancelInterview = function(id) {
+  const cancelInterview = function (id) {
+    return axios
+      .delete(`http://localhost:8001/api/appointments/${id}`)
+      .then(() => {
+        const appointment = {
+          ...state.appointments[id],
+          interview: null,
+        };
+        const appointments = {
+          ...state.appointments,
+          [id]: appointment,
+        };
 
-    // return axios.delete(`http://localhost:8001/api/appointments/${id}`, {id})
-    // .then(() => {
-    //   setState(prev => ({...prev, appointments}))
-    // })
-    return axios.delete(`http://localhost:8001/api/appointments/${id}`)
-    .then(() => {
-    
-    const appointment = {
-      ...state.appointments[id],
-      interview: null,
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
-
-    console.log('cancel!!', id);
-    setState({...state, appointments})
-    })
-
-    
-  }
+        console.log("cancel!!", id);
+        setState({ ...state, appointments });
+      });
+  };
 
   const bookInterview = function (id, interview) {
     const appointment = {
@@ -50,10 +43,11 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment,
     };
-     return axios.put(`http://localhost:8001/api/appointments/${id}`, {interview})
+    return axios
+      .put(`http://localhost:8001/api/appointments/${id}`, { interview })
       .then(() => {
-        setState(prev => ({...prev, appointments}))
-      })
+        setState((prev) => ({ ...prev, appointments }));
+      });
   };
 
   const appointments = getAppointmentsForDay(state, state.day);
@@ -112,10 +106,6 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {schedule}
-        {/* {intervewerArr} */}
-        {/* {dailyAppointments.map((appointment) => (
-      <Appointment key={appointment.id} {...appointment} />
-    ))} */}
         <Appointment key="last" time="5pm" />
       </section>
     </main>
