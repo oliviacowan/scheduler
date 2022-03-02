@@ -2,10 +2,12 @@
   "name": "scheduler",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8001",
   "dependencies": {
     "axios": "^0.26.0",
     "classnames": "^2.2.6",
     "normalize.css": "^8.0.1",
+    "prop-types": "^15.8.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.0.0"
@@ -17,7 +19,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public --ci",
     "build-storybook": "build-storybook -s public",
-    "proxy": "http://localhost:8001"
+    "cypress": "cypress open -P ."
   },
   "browserslist": {
     "production": [
@@ -42,6 +44,7 @@
     "@testing-library/react": "^8.0.7",
     "@testing-library/react-hooks": "^7.0.2",
     "babel-loader": "^8.0.5",
+    "cypress": "^9.5.1",
     "node-sass": "^4.14.0",
     "react-test-renderer": "^16.9.0"
   },

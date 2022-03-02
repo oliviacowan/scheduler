@@ -9,13 +9,10 @@ export default function useVisualMode(initial) {
 
     if (replace === true) {
       newHistory[newHistory.length - 1] = newMode;
-      // console.log('2', newHistory)
       setHistory(newHistory);
-      // setHistory((prev) => {[...prev, newHistory]});
+      
     } else {
-    newHistory.push(newMode);
-    setHistory(newHistory);
-    // setHistory((prev) => {[...prev, newHistory]});
+    setHistory((prev) => [...prev, newMode]);
     }
   }
   
@@ -27,7 +24,6 @@ export default function useVisualMode(initial) {
     let newHistory = [...history];
     newHistory.pop();
     setHistory(newHistory);
-    // setHistory((prev) => {[...prev, newHistory]});
   }
 
   const mode = history[history.length -1]

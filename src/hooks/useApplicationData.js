@@ -10,19 +10,24 @@ export default function useApplictionData() {
   });
 
   const cancelInterview = function (id) {
-    return axios
-      .delete(`http://localhost:8001/api/appointments/${id}`)
-      .then(() => {
-        const appointment = {
-          ...state.appointments[id],
-          interview: null,
-        };
-        const appointments = {
-          ...state.appointments,
-          [id]: appointment,
-        };
+    
+    const appointment = {
+      ...state.appointments[id],
+      interview: null,
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+    const stateCopy = {...state, appointments};
+    const updatedDays = updateSpots(stateCopy, stateCopy.day);
+    
+    const finalStateCopy = {...stateCopy, days: updatedDays}
 
-        setState({ ...state, appointments });
+    return axios
+      .delete(`/api/appointments/${id}`)
+      .then(() => {
+        setState(finalStateCopy);
       });
   };
 
@@ -35,22 +40,29 @@ export default function useApplictionData() {
       ...state.appointments,
       [id]: appointment,
     };
+    const stateCopy = {...state, appointments};
+    const updatedDays = updateSpots(stateCopy, stateCopy.day);
+    
+    const finalStateCopy = {...stateCopy, days: updatedDays}
+
+
     return axios
-      .put(`http://localhost:8001/api/appointments/${id}`, { interview })
+      .put(`/api/appointments/${id}`, { interview })
       .then(() => {
-        setState((prev) => ({ ...prev, appointments }));
+   
+        setState(finalStateCopy);
       });
   };
 
   const setDay = (day) => {
-    setState({ ...state, day });
+    setState({ ...state, day});
   };
 
   useEffect(() => {
     Promise.all([
-      axios.get("http://localhost:8001/api/days"),
-      axios.get("http://localhost:8001/api/appointments"),
-      axios.get("http://localhost:8001/api/interviewers"),
+      axios.get("/api/days"),
+      axios.get("/api/appointments"),
+      axios.get("/api/interviewers"),
     ]).then((all) => {
       setState((prev) => ({
         ...prev,
@@ -61,7 +73,23 @@ export default function useApplictionData() {
     });
   }, []);
 
+  const updateSpots = (state, day) => {
+    const currentDay = state.days.find((dayItem) => dayItem.name === day);
+    const appointmentIds = currentDay.appointments;
+
+   const interviewsForDay = appointmentIds.map((id) => state.appointments[id].interview);
+    const emptyInterviews = interviewsForDay.filter((interview) => !interview)
+    const spotsRemaining = emptyInterviews.length;
+
+    const newDaysArray = state.days.map((day) => {
+      if (day.name === currentDay.name) {
+        return {...currentDay, spots: spotsRemaining};
+      }
+      return day;
+    })
  
+    return newDaysArray
+  }
 
   return { state, cancelInterview, bookInterview, setDay };
 }
