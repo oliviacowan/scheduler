@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function useApplictionData() {
@@ -10,7 +10,6 @@ export default function useApplictionData() {
   });
 
   const cancelInterview = function (id) {
-    
     const appointment = {
       ...state.appointments[id],
       interview: null,
@@ -19,16 +18,14 @@ export default function useApplictionData() {
       ...state.appointments,
       [id]: appointment,
     };
-    const stateCopy = {...state, appointments};
+    const stateCopy = { ...state, appointments };
     const updatedDays = updateSpots(stateCopy, stateCopy.day);
-    
-    const finalStateCopy = {...stateCopy, days: updatedDays}
 
-    return axios
-      .delete(`/api/appointments/${id}`)
-      .then(() => {
-        setState(finalStateCopy);
-      });
+    const finalStateCopy = { ...stateCopy, days: updatedDays };
+
+    return axios.delete(`/api/appointments/${id}`).then(() => {
+      setState(finalStateCopy);
+    });
   };
 
   const bookInterview = function (id, interview) {
@@ -40,22 +37,18 @@ export default function useApplictionData() {
       ...state.appointments,
       [id]: appointment,
     };
-    const stateCopy = {...state, appointments};
+    const stateCopy = { ...state, appointments };
     const updatedDays = updateSpots(stateCopy, stateCopy.day);
-    
-    const finalStateCopy = {...stateCopy, days: updatedDays}
 
+    const finalStateCopy = { ...stateCopy, days: updatedDays };
 
-    return axios
-      .put(`/api/appointments/${id}`, { interview })
-      .then(() => {
-   
-        setState(finalStateCopy);
-      });
+    return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
+      setState(finalStateCopy);
+    });
   };
 
   const setDay = (day) => {
-    setState({ ...state, day});
+    setState({ ...state, day });
   };
 
   useEffect(() => {
@@ -77,19 +70,21 @@ export default function useApplictionData() {
     const currentDay = state.days.find((dayItem) => dayItem.name === day);
     const appointmentIds = currentDay.appointments;
 
-   const interviewsForDay = appointmentIds.map((id) => state.appointments[id].interview);
-    const emptyInterviews = interviewsForDay.filter((interview) => !interview)
+    const interviewsForDay = appointmentIds.map(
+      (id) => state.appointments[id].interview
+    );
+    const emptyInterviews = interviewsForDay.filter((interview) => !interview);
     const spotsRemaining = emptyInterviews.length;
 
     const newDaysArray = state.days.map((day) => {
       if (day.name === currentDay.name) {
-        return {...currentDay, spots: spotsRemaining};
+        return { ...currentDay, spots: spotsRemaining };
       }
       return day;
-    })
- 
-    return newDaysArray
-  }
+    });
+
+    return newDaysArray;
+  };
 
   return { state, cancelInterview, bookInterview, setDay };
 }

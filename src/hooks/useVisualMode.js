@@ -20,12 +20,12 @@ export default function useVisualMode(initial) {
   
     if (history.length < 2) {
       return;
-    }
+    };
     let newHistory = [...history];
     newHistory.pop();
     setHistory(newHistory);
-  }
+  };
 
-  const mode = history[history.length -1]
+  const mode = history[history.length -1];
   return { mode, transition, back };
 }

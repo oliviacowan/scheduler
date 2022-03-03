@@ -1,6 +1,6 @@
 describe("Appointments", () => {
   beforeEach(() => {
-    cy.request("GET", "http://localhost:8001/api/debug/reset");
+    cy.request("GET", "/api/debug/reset");
     cy.visit("/");
     cy.contains("Monday");
   });
@@ -33,7 +33,7 @@ describe("Appointments", () => {
     cy.contains(".appointment__card--show", "Tori Malcolm");
   });
 
-  it.only("should cancel an interview", () => {
+  it("should cancel an interview", () => {
     cy.get("[alt=Delete]")
     .first()
      .click({ force: true} );
