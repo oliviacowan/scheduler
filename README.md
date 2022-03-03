@@ -24,7 +24,9 @@ npm run storybook
 ```
 
 ## The Final Product
+![A list of interviews for Thurday, with the mouse hovering over the first appointment](https://github.com/oliviacowan/scheduler/blob/master/docs/hover-over-appointment.png?raw=true)
 
+![Adding a new appointment](https://github.com/oliviacowan/scheduler/blob/master/docs/new-interview.png?raw=true)
 
 ## Dependencies
 axios
