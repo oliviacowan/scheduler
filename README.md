@@ -29,6 +29,6 @@ npm run storybook
 !["Adding a new appointment"](https://github.com/oliviacowan/scheduler/blob/master/docs/new-interview.png?raw=true)
 
 ## Dependencies
-axios
-@testing-library/react-hooks
-react-test-renderer
+-axios
+-@testing-library/react-hooks
+-react-test-renderer
