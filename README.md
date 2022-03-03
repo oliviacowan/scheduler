@@ -1,23 +1,32 @@
-# Interview Scheduler
+# Interview Scheduler --
+## A single page web app built with React, and using Storybook during development, and is tested with Jest, and Cypress.
 
-## Setup
+
+
+
+### Setup
 
 Install dependencies with `npm install`.
 
-## Running Webpack Development Server
-
+ Running Webpack Development Server:
 ```sh
 npm start
 ```
-
-## Running Jest Test Framework
+ Running Jest Test Framework:
 
 ```sh
 npm test
 ```
-
-## Running Storybook Visual Testbed
+Running Storybook Visual Testbed:
 
 ```sh
 npm run storybook
 ```
+
+## The Final Product
+
+
+## Dependencies
+axios
+@testing-library/react-hooks
+react-test-renderer
