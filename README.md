@@ -1,5 +1,5 @@
 # Interview Scheduler --
-## A single page web app built with React, and using Storybook during development, and is tested with Jest, and Cypress.
+### A single page web app built with React, and using Storybook during development, and is tested with Jest, and Cypress.
 
 
 
