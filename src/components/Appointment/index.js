@@ -28,8 +28,10 @@ export default function Appointment({
   cancelInterview,
   time,
 }) {
+
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
+//saves an appointment with name of the student and data of the interviewer
   const save = function (name, interviewer) {
     const interviewObj = {
       student: name,
@@ -41,7 +43,9 @@ export default function Appointment({
       .catch((error) => transition(ERROR_SAVE), true);
   };
 
+  // when confirm is clicked cancelInterview is called and correct modes are transitioned to
   function destroy() {
+    console.log('destroy')
     transition(DELETING, true);
     cancelInterview(id)
       .then(() => transition(EMPTY))
@@ -78,8 +82,8 @@ export default function Appointment({
         )}
         {mode === EDIT && (
           <Form
-            student={interview.student}
-            interviewer={interview.interviewer.id}
+            student={interview && interview.student}
+            interviewer={interview && interview.interviewer.id}
             interviewers={interviewers}
             onSave={save}
             onCancel={back}
@@ -90,7 +94,7 @@ export default function Appointment({
           <Error
             message={"Could not save appointment"}
             onClose={() => {
-              transition(EMPTY);
+              transition(EDIT); //EDIT???
             }}
           />
         )}

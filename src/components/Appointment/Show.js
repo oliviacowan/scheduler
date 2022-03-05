@@ -1,9 +1,12 @@
 import React from "react";
 
 export default function Show({ student, interviewer, onDelete, onEdit }) {
+//transitions to CONFIRM - prop passed from index
   const deleteAppointment = function () {
     onDelete()
   };
+
+//transitions to EDIT - prop passed from index
   const edit = function () {
     onEdit()
   };
@@ -24,14 +27,12 @@ export default function Show({ student, interviewer, onDelete, onEdit }) {
             src="images/edit.png"
             alt="Edit"
             onClick={edit}
-            // onClick={props.onEdit}
           />
           <img
             className="appointment__actions-button"
             src="images/trash.png"
             alt="Delete"
             onClick={deleteAppointment}
-            // {props.onDelete}
           />
         </section>
       </section>

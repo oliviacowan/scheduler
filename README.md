@@ -22,6 +22,8 @@ Running Storybook Visual Testbed:
 ```sh
 npm run storybook
 ```
+Running the scheduler-API:
+https://github.com/oliviacowan/scheduler-api
 
 ## The Final Product
 !["A list of interviews for Thurday, with the mouse hovering over the first appointment"](https://github.com/oliviacowan/scheduler/blob/master/docs/hover-over-appointment.png?raw=true)
@@ -32,3 +34,9 @@ npm run storybook
 - axios
 - @testing-library/react-hooks
 - react-test-renderer
+- React
+- Jest
+- Storybook
+- Webpack
+- Babel
+- Node.js
