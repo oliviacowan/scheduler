@@ -38,18 +38,18 @@ export default function Appointment({
       interviewer,
     };
     transition(SAVING);
-    bookInterview(id, interviewObj)
+    Promise.resolve(bookInterview(id, interviewObj))
       .then(() => transition(SHOW))
-      .catch((error) => transition(ERROR_SAVE), true);
+      .catch((error) => transition(ERROR_SAVE, true));
   };
 
   // when confirm is clicked cancelInterview is called and correct modes are transitioned to
   function destroy() {
-    console.log('destroy')
+    // console.log('destroy')
     transition(DELETING, true);
     cancelInterview(id)
       .then(() => transition(EMPTY))
-      .catch((error) => transition(ERROR_DELETE), true);
+      .catch((error) => transition(ERROR_DELETE, true));
   };
 
   return (
@@ -93,9 +93,7 @@ export default function Appointment({
         {mode === ERROR_SAVE && (
           <Error
             message={"Could not save appointment"}
-            onClose={() => {
-              transition(EDIT); //EDIT???
-            }}
+            onClose={back}
           />
         )}
         {mode === ERROR_DELETE && (
