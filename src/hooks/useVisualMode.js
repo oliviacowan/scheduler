@@ -7,35 +7,25 @@ export default function useVisualMode(initial) {
   const transition = function (updatedMode, replace) {
 
     setMode(updatedMode)
-
+    // check if replace argument is true
     if (replace) {
+    // remove last value of prev history array and replace with the mode being passed in (updatedMode) 
       setHistory((prev) => [...prev.slice(0, -1), updatedMode])
     } else {
+    // otherwise just add the new mode on to the end
       setHistory((prev) => [...prev, updatedMode])
     }
-    // let newHistory = [...history];
-
-    // if (replace === true) {
-    //   newHistory[newHistory.length - 1] = newMode;
-    //   setHistory(newHistory);
-    // } else {
-    //   setHistory((prev) => [...prev, newMode]);
-    // }
   };
 
   const back = function () {
+  // checks if array is long enough to be able to go back
     if (history.length > 1) {
+  // sets the mode to the second to last mode in the array
       setMode(history[history.length - 2])
+  // removes the last mode from the end of the history array
       setHistory((prev) => [...prev.slice(0, -1)])
     }
-    // if (history.length < 2) {
-    //   return;
-    // }
-    // let newHistory = [...history];
-    // newHistory.pop();
-    // setHistory(newHistory);
   };
 
-  // mode = history[history.length - 1];
   return { mode, transition, back };
 }
