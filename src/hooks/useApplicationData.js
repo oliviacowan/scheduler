@@ -38,6 +38,7 @@ export default function useApplictionData() {
       ...state.appointments,
       [id]: appointment,
     };
+    
     // copy state and add the new appointments object to it
     const stateCopy = { ...state, appointments };
     // calls updateSpots function to update remaining spots for the day where the interview was cancelled
